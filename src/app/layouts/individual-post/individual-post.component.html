@@ -1,0 +1,7 @@
+<app-button-back />
+
+<app-card-post [post]="post$ | async" />
+
+<app-comments [comments]="(post$ | async)!.comments" />
+
+<app-new-comment />

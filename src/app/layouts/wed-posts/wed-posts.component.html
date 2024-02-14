@@ -1,0 +1,8 @@
+<app-header [wedding]="(wedding$ | async)?.wedding" />
+<app-button-scroll-to-up />
+
+@if((wedding$ | async)?.loading) {
+<h1><app-loader /></h1>
+} @else {
+<router-outlet />
+}

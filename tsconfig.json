@@ -2,6 +2,19 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@components/*": ["src/app/components/*"],
+      "@layouts/*": ["src/app/layouts/*"],
+      "@services/*": ["src/app/services/*"],
+      "@actions/*": ["src/app/state/actions/*"],
+      "@reducers/*": ["src/app/state/reducers/*"],
+      "@selectors/*": ["src/app/state/selectors/*"],
+      "@effects/*": ["src/app/state/effects/*"],
+      "@images/*": ["src/assets/*"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -19,10 +32,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,10 @@
+<header
+    class="relative flex mb-4 py-4 px-2 items-center justify-between border-b border-slate-300 border-2 bg-cover bg-center w-full"
+    [style.background-image]="'url(' + imgBg + ')'" [ngClass]="{'nav-scroll' : scrollPosition > 100}">
+    <div>
+        <h1 class="text-3xl font-bold text-red-300">Casamiento</h1>
+        <h2 class="text-sm text-slate-400">{{ wedding?.weddingName }}</h2>
+    </div>
+
+    <span>Usuario</span>
+</header>

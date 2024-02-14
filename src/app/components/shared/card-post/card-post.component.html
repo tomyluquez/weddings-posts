@@ -1,0 +1,39 @@
+@if (post) {
+<section class="flex flex-col boder-2 border-y border-slate-300 py-4 px-2 gap-4">
+    <div class="flex items-center justify-between relative">
+        <h3 class="text-2xl font-bold text-red-300">{{post.userName}}</h3>
+        <button (click)="toggleOptionsMenu()" class="menu-toggle">&#8230;</button>
+        <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
+            <ul>
+                <li (click)="editPost(post.publicationId)">Editar publicación</li>
+                <hr>
+                <li>Eliminar publicación</li>
+                <!-- Agrega más opciones según sea necesario -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- <img class="w-full h-100" [src]="post?.image" alt="Imagen del post?eo"> -->
+    <div (click)="openPost(post!.publicationId)"
+        class="bg-contain bg-no-repeat bg-center h-[300px] w-full cursor-pointer"
+        [style.background-image]="'url(' + post.image + ')'">
+    </div>
+
+
+    <div class="flex items-center justify-between">
+        <i (click)="like()" class="fa-solid fa-heart text-red-500">{{post.likes.length}}</i>
+        <i (click)="openPost(post!.publicationId)"
+            class="fa-solid fa-comment text-slate-500">{{post.comments.length}}</i>
+    </div>
+
+    <div (click)="toogleMessage()">
+        <p
+            [ngClass]="{'text-slate-400': true, 'message-wraped': true, 'line-clamp-2': !messageFull, 'line-clamp-none': messageFull, 'duration': 300}">
+            {{ post.comment }}
+        </p>
+        @if (post.comment.length > 50) {
+        <label class="text-sm text-blue-400">{{messageFull ? 'Leer menos' : 'Leer mas'}}</label>
+        }
+    </div>
+</section>
+}

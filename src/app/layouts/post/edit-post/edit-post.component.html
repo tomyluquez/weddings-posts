@@ -1,0 +1,8 @@
+<app-button-back />
+
+
+@if (!loading) {
+<app-form-post [post]="(post$ | async)" />
+} @else {
+<h1>Cargando...</h1>
+}

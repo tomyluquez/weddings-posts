@@ -1,0 +1,28 @@
+@if (loading) {
+<app-loader />
+}
+<form [formGroup]="formPost" (submit)="onSubmit()"
+    class="flex flex-col items-center justify-center gap-4 w-[300px] m-auto">
+    <div (click)="selectImage()"
+        class="border-2 border-dashed h-[300px] w-full cursor-pointer rounded flex flex-col items-center justify-center"
+        [ngClass]="{ 'border-red-300': image }">
+        <input type="file" id="inputImage" formControlName="image" name="image" (change)="onFileSelected($event)"
+            accept="image/*" hidden>
+
+        @if (image) {
+        <img src="{{ image }}" alt="Foto seleccionada de la galeria" class="h-[90%] w-[50%]">
+        } @else if (!image && this.post?.image){
+        <img src="{{ this.post?.image }}" alt="Foto seleccionada de la galeria" class="h-[90%] w-[50%]">
+        }@else {
+        <i class="fa-solid fa-camera"></i>
+        <p>Selecciona una imagen</p>
+        }
+    </div>
+    @if (image) {
+    <p class="text-red-300">Hacer click en la imagen para actualizarla</p>
+    }
+    <textarea class="w-full h-[100px] border-2 border-slate-200 rounded p-2 focus:outline-none focus:border-red-300"
+        formControlName="comment" name="comment" placeholder="Deja un comentario para los novios..."></textarea>
+    <button [disabled]="formPost.invalid" class="w-full px-4 py-2 rounded text-white"
+        [ngClass]="{ 'bg-slate-300': formPost.status === 'INVALID', 'bg-red-300': formPost.status === 'VALID' }">Publicar</button>
+</form>
