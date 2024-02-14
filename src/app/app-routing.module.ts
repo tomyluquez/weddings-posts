@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { WedPostsComponent } from './layouts/wed-posts/wed-posts.component';
-import { HomeComponent } from './layouts/home/home.component';
+import { RouterModule, Routes, withViewTransitions } from '@angular/router';
 
 const routes: Routes = [
   {

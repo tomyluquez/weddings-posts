@@ -12,7 +12,7 @@ export const initialState: WeddingState = {
     path: '',
     posts: [],
   },
-  loading: false,
+  loading: true,
 };
 
 export const weddingReducer = createReducer(

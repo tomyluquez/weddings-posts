@@ -9,9 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { LoaderComponent } from '@app/components/shared/loader/loader.component';
 import { Post } from '@app/core/models/post.model';
+import { Wedding, WeddingState } from '@app/core/models/wedding.model';
 import { FirebaseService } from '@app/services/firebase.service';
 import { StorageService } from '@app/services/storage.service';
-import { pathWedding } from '@app/state/selectors/posts.selectors';
+import { loadWedding } from '@app/state/actions/wedding.actions';
+import { selectStore } from '@app/state/selectors/posts.selectors';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,10 +29,9 @@ export class FormPostComponent implements OnChanges {
   @Input() post?: Post | null;
   image?: string;
   imageSelected!: File;
-  loading: boolean = false;
-  weddingPath$!: Observable<string>;
+  wedding$!: Observable<WeddingState>;
   currentUrl = this.router.url;
-
+  loading!: boolean;
   formPost!: FormGroup;
 
   constructor(
@@ -46,7 +47,7 @@ export class FormPostComponent implements OnChanges {
       comment: [this.post?.comment || '', Validators.required],
     });
 
-    this.weddingPath$ = this._store.pipe(select(pathWedding));
+    this.wedding$ = this._store.pipe(select(selectStore));
   }
 
   ngOnChanges(): void {
@@ -73,13 +74,16 @@ export class FormPostComponent implements OnChanges {
   }
 
   async onSubmit() {
-    this.loading = true;
+    this._store.dispatch(loadWedding());
+    let weddingPath;
+    this.wedding$.subscribe((state: WeddingState) => {
+      weddingPath = state.wedding.path;
+      this.loading = state.loading;
+    });
     // comprobamos segun la url si es un nuevo post o no
     const isNewPost = this.currentUrl.includes('new');
     let urlImage: string | unknown;
     // obtenemos el path de la boda desde la url para pasarlo como argumento
-    let weddingPath;
-    this.weddingPath$.subscribe((path: string) => (weddingPath = path));
 
     if (this.formPost.valid) {
       const comment = this.formPost.get('comment')!.value;
@@ -109,14 +113,11 @@ export class FormPostComponent implements OnChanges {
           likes: [],
         };
 
-        this._firestore.uploadPost(newPost).then(() => {
-          this.loading = false;
-        });
+        this._firestore.uploadPost(newPost);
       } else {
         // caso contrario se actualiza el post
         this._firestore.updatePost(this.post?.publicationId, urlImage, comment);
       }
-      this.loading = false;
       this.router.navigateByUrl(`/bodas/${weddingPath}/posts`);
     }
   }

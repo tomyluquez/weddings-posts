@@ -154,4 +154,30 @@ export class FirebaseService {
       console.error('Error al agregar el nuevo post:', error);
     }
   }
+
+  async deletePost(id: string) {
+    try {
+      // obtenemos la referencia de la boda
+      const celiDocRef = doc(
+        this._firestore,
+        `${this.PATH_COLLECTION}/${this.weddingPath}`
+      );
+      // obtenemos el documento dentro de la referencia
+      const docSnap = await getDoc(celiDocRef);
+      if (docSnap.exists()) {
+        // en caso de que exista obtenemos la data que contiene el documento y editamos el post en posts[]
+        const data = docSnap.data();
+        const posts = data['posts'];
+        const postIndex = posts.findIndex(
+          (post: Post) => post.publicationId === id
+        );
+        if (postIndex !== -1) {
+          posts.splice(postIndex, 1);
+        }
+        return await updateDoc(celiDocRef, {
+          posts: posts,
+        });
+      }
+    } catch (error) {}
+  }
 }

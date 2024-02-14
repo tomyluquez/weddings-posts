@@ -1,6 +1,6 @@
 <app-button-back />
 
-<app-card-post [post]="post$ | async" />
+<app-card-post [post]="post$ | async" [loading]="(loading$ | async)" />
 
 <app-comments [comments]="(post$ | async)!.comments" />
 

@@ -9,7 +9,7 @@ import { LoaderComponent } from '@app/components/shared/loader/loader.component'
 import { WeddingState } from '@app/core/models/wedding.model';
 import { FirebaseService } from '@app/services/firebase.service';
 import { loadWedding, setWedding } from '@app/state/actions/wedding.actions';
-import { selectWedding } from '@app/state/selectors/posts.selectors';
+import { selectStore } from '@app/state/selectors/posts.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
@@ -31,7 +31,7 @@ import { Observable, map } from 'rxjs';
 export class WedPostsComponent {
   weddingPath!: string;
   wedding$: Observable<WeddingState> = this.store
-    .select(selectWedding)
+    .select(selectStore)
     .pipe(map((data: WeddingState) => data));
 
   constructor(
@@ -46,8 +46,8 @@ export class WedPostsComponent {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadWedding());
     this._firestore.getWedding(this.weddingPath).subscribe((wedding) => {
+      this.store.dispatch(loadWedding());
       const currentUrl = this.router.url;
       if (wedding) {
         if (!currentUrl.includes('posts')) {

@@ -1,1 +1,9 @@
-<p>comments works!</p>
+<section class="mb-[45px]">
+    @for (comment of comments; track $index) {
+    <div class="flex gap-2">
+        <h3 class="font-bold">{{comment.userName}}</h3>
+        <span class="text-slate-300">{{comment.comment}}</span>
+    </div>
+    }
+</section>
+<hr>

@@ -6,7 +6,7 @@ import {
   ref,
   uploadBytes,
 } from '@angular/fire/storage';
-import { selectWedding } from '@app/state/selectors/posts.selectors';
+import { selectStore } from '@app/state/selectors/posts.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class StorageService {
   weddingPath!: Observable<string>;
 
   constructor(private _storage: Storage, private store: Store) {
-    this.store.select(selectWedding).pipe(map((data) => console.log(data)));
+    this.store.select(selectStore).pipe(map((data) => console.log(data)));
   }
 
   async uploadImage(file: File) {

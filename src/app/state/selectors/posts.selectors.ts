@@ -2,21 +2,20 @@ import { Post } from '@app/core/models/post.model';
 import { Wedding, WeddingState } from '@app/core/models/wedding.model';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-export const selectWedding =
-  createFeatureSelector<WeddingState>('weddingState');
+export const selectStore = createFeatureSelector<WeddingState>('weddingState');
 
 export const selectInfoWedding = createSelector(
-  selectWedding,
+  selectStore,
   (state: WeddingState) => state.wedding
 );
 
 export const pathWedding = createSelector(
-  selectWedding,
+  selectStore,
   (state: WeddingState) => state.wedding.path
 );
 
 export const selectIndividualPost = createSelector(
-  selectWedding,
+  selectStore,
   (state: WeddingState) => state.wedding.posts
 );
 

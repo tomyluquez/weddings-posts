@@ -1,14 +1,14 @@
-@if(!(wedding$ | async)) {
+@if(!(store$ | async)?.wedding) {
 <h1>No existe la boda por favor corrobora el nombre de la url</h1>
 }
 
-@else if((wedding$ | async)?.posts?.length === 0){
+@else if((store$ | async)?.wedding?.posts?.length === 0){
 <h1>No hay publicaciones</h1>
 }
 
 @else {
-@for (post of (wedding$ | async)?.posts; track $index) {
-<app-card-post [post]="post" />
+@for (post of (store$ | async)?.wedding?.posts; track $index) {
+<app-card-post [post]="post" [loading]="(store$ | async)!.loading" />
 
 
 }

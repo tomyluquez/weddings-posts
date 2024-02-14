@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ButtonNewPostComponent } from '@app/components/button-new-post/button-new-post.component';
 import { CardPostComponent } from '@app/components/shared/card-post/card-post.component';
-import { Wedding } from '@app/core/models/wedding.model';
-import { selectInfoWedding } from '@app/state/selectors/posts.selectors';
+import { WeddingState } from '@app/core/models/wedding.model';
+import { selectStore } from '@app/state/selectors/posts.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
@@ -15,9 +15,9 @@ import { Observable, map } from 'rxjs';
   styleUrl: './post.component.css',
 })
 export class PostComponent {
-  wedding$: Observable<Wedding> = this.store
-    .select(selectInfoWedding)
-    .pipe(map((data: Wedding) => data));
+  store$: Observable<WeddingState> = this.store
+    .select(selectStore)
+    .pipe(map((store: WeddingState) => store));
 
   constructor(private store: Store) {}
 }
