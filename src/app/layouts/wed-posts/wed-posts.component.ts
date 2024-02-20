@@ -54,6 +54,7 @@ export class WedPostsComponent {
           this.router.navigateByUrl(`/bodas/${this.weddingPath}/posts`);
         }
         this.store.dispatch(setWedding({ wedding }));
+        localStorage.setItem('weddingInfo', JSON.stringify(wedding));
       } else {
         this.router.navigateByUrl(`/bodas/notFound`);
       }

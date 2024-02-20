@@ -1,4 +1,5 @@
-<form class="flex gap-2 py-2 px-4 fixed bottom-0 w-full bg-red-300">
-    <input type="text" name="comment" class="w-full rounded border-2 border-slate-300 focus:border-red-300">
-    <button class="w-auto text-white" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
-</form>
+<div class="flex gap-2 py-2 px-4 fixed bottom-0 w-full bg-red-300">
+    <input type="text" [(ngModel)]="newComment" placeholder="Escribe un comentario"
+        class="w-full rounded border-2 border-slate-300 focus:border-red-300">
+    <button (click)="addComment()" class="w-auto text-white"><i class="fa-regular fa-paper-plane"></i></button>
+</div>

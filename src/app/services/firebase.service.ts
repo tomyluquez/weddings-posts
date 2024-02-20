@@ -180,4 +180,65 @@ export class FirebaseService {
       }
     } catch (error) {}
   }
+
+  async addComent(
+    idPublication: string,
+    comment: string,
+    userName: string,
+    idComment: string
+  ) {
+    try {
+      // obtenemos la referencia de la boda
+      const celiDocRef = doc(
+        this._firestore,
+        `${this.PATH_COLLECTION}/${this.weddingPath}`
+      );
+      // obtenemos el documento dentro de la referencia
+      const docSnap = await getDoc(celiDocRef);
+      if (docSnap.exists()) {
+        // en caso de que exista obtenemos la data que contiene el documento y editamos el post en posts[]
+        const data = docSnap.data();
+        const posts = data['posts'];
+        const postIndex = posts.findIndex(
+          (post: Post) => post.publicationId === idPublication
+        );
+        if (postIndex !== -1) {
+          posts[postIndex].comments.unshift({ userName, comment, idComment });
+        }
+        return await updateDoc(celiDocRef, {
+          posts: posts,
+        });
+      }
+    } catch (error) {
+      console.error('Error al agregar el nuevo post:', error);
+    }
+  }
+
+  async deleteComent(idPublication: string, idComment: string) {
+    try {
+      // obtenemos la referencia de la boda
+      const celiDocRef = doc(
+        this._firestore,
+        `${this.PATH_COLLECTION}/${this.weddingPath}`
+      );
+      // obtenemos el documento dentro de la referencia
+      const docSnap = await getDoc(celiDocRef);
+      if (docSnap.exists()) {
+        // en caso de que exista obtenemos la data que contiene el documento y editamos el post en posts[]
+        const data = docSnap.data();
+        const posts = data['posts'];
+        const postIndex = posts.findIndex(
+          (post: Post) => post.publicationId === idPublication
+        );
+        if (postIndex !== -1) {
+          posts[postIndex].comments.splice(postIndex, 1);
+        }
+        return await updateDoc(celiDocRef, {
+          posts: posts,
+        });
+      }
+    } catch (error) {
+      console.error('Error al agregar el nuevo post:', error);
+    }
+  }
 }

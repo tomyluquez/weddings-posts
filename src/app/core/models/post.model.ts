@@ -13,6 +13,7 @@ export interface Post {
 export interface Comments {
   userName: string;
   comment: string;
+  idComment: string;
 }
 
 export interface PostsState {

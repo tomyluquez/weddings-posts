@@ -1,8 +1,13 @@
 <section class="mb-[45px]">
     @for (comment of comments; track $index) {
-    <div class="flex gap-2">
-        <h3 class="font-bold">{{comment.userName}}</h3>
-        <span class="text-slate-300">{{comment.comment}}</span>
+    <div class="flex items-center justify-between gap-2 px-2">
+        <div class="flex gap-2">
+            <h3 class="font-bold">{{comment.userName}}</h3>
+            <span class="text-slate-300">{{comment.comment}}</span>
+        </div>
+        <div class="flex items-center justify-center gap-2 self-end">
+            <i (click)="deleteComment(comment.idComment)" class="fa-solid fa-trash text-red-300"></i>
+        </div>
     </div>
     }
 </section>
