@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import {
+  pathWedding,
+  selectInfoWedding,
+} from '@app/state/selectors/posts.selectors';
 import { selectInfoUser } from '@app/state/selectors/user.selectors';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,7 +21,10 @@ export class AuthGuard implements CanActivate {
         if (user.userName) {
           return true; // Si hay un usuario guardado en el store, permite el acceso a la ruta
         } else {
-          this.router.navigate(['/login']); // Si no hay un usuario guardado, redirige al login
+          this.store.select(pathWedding).subscribe((path: string) => {
+            console.log(path);
+            this.router.navigateByUrl(`/bodas/${path}`);
+          });
           return false;
         }
       }),

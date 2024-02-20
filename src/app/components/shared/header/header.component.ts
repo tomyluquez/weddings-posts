@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { Wedding } from '@app/core/models/wedding.model';
 
 @Component({
@@ -11,6 +12,7 @@ import { Wedding } from '@app/core/models/wedding.model';
 })
 export class HeaderComponent implements OnInit {
   @Input() wedding?: Wedding;
+  @Input() userName?: string | null;
 
   imgBg = './assets/bg-header.webp';
   scrollPosition = 0;

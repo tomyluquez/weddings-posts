@@ -14,7 +14,6 @@ const routes: Routes = [
       import('@app/layouts/wed-posts/wed-posts.component').then(
         (c) => c.WedPostsComponent
       ),
-    canActivate: [AuthGuard],
     children: [
       {
         path: 'posts',
@@ -22,6 +21,7 @@ const routes: Routes = [
           import('@app/layouts/post/post.component').then(
             (c) => c.PostComponent
           ),
+        canActivate: [AuthGuard],
       },
       {
         path: 'posts/newPost',

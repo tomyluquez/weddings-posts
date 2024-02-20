@@ -1,5 +1,9 @@
-<app-header [wedding]="(wedding$ | async)?.wedding" />
+<app-header [wedding]="(wedding$ | async)?.wedding" [userName]="user?.userName" />
 <app-button-scroll-to-up />
+
+@if (!user!.userName) {
+<app-auth [welcomeText]="(wedding$ | async)?.wedding!.welcomeText" />
+}
 
 @if((wedding$ | async)?.loading) {
 <h1><app-loader /></h1>

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { ROOT_REDUCERS } from './state/app.state';
+import { ROOT_REDUCERS, localStorageSyncReducer } from './state/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -30,7 +30,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreModule.forRoot(ROOT_REDUCERS, {
+      metaReducers: [localStorageSyncReducer],
+    }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
