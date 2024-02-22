@@ -37,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
       const auth = getAuth();
-      if (environment.useEmulators) {
+      if (environment.useEmulators && isDevMode()) {
+        // Solo en modo de desarrollo
         connectAuthEmulator(auth, 'http://localhost:9099', {
           disableWarnings: true,
         });
@@ -46,7 +47,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     }),
     provideFirestore(() => {
       let firestore: Firestore;
-      if (environment.useEmulators) {
+      if (environment.useEmulators && isDevMode()) {
+        // Solo en modo de desarrollo
         firestore = initializeFirestore(getApp(), {
           experimentalForceLongPolling: true,
         });
@@ -58,12 +60,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     }),
     provideStorage(() => {
       const storage = getStorage();
-      if (environment.useEmulators) {
+      if (environment.useEmulators && isDevMode()) {
+        // Solo en modo de desarrollo
         connectStorageEmulator(storage, 'localhost', 9199);
       }
       return storage;
     }),
-    // EffectsModule.forRoot([WeddingEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
