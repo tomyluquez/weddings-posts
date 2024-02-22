@@ -19,8 +19,12 @@ export class AuthServiceService {
 
     return signInWithPopup(auth, provider)
       .then(({ user }) => {
-        localStorage.setItem('user', user.uid);
-        return { userName: user.displayName, mail: user.email };
+        console.log(user);
+        return {
+          userName: user.displayName,
+          mail: user.email,
+          photo: user.photoURL,
+        };
       })
       .catch((error) => {
         console.log(error);

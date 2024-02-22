@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '@app/core/models/user.model';
 import { FirebaseService } from '@app/services/firebase.service';
 import { loadWedding } from '@app/state/actions/wedding.actions';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -15,6 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrl: './new-comment.component.css',
 })
 export class NewCommentComponent {
+  @Input() userName!: string | null;
   newComment: string = '';
   publicationId!: string;
 
@@ -34,7 +37,7 @@ export class NewCommentComponent {
     this._firebase.addComent(
       this.publicationId,
       this.newComment,
-      'Tomas Luquez',
+      this.userName || 'defaulUser',
       idComment
     );
     this.newComment = '';

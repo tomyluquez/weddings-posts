@@ -41,6 +41,7 @@ export class FirebaseService {
   }
 
   async uploadPost(post: Post) {
+    console.log(this.weddingPath);
     try {
       // obtenemos la referencia de la boda
       const celiDocRef = doc(

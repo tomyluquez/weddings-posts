@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
           return true; // Si hay un usuario guardado en el store, permite el acceso a la ruta
         } else {
           this.store.select(pathWedding).subscribe((path: string) => {
-            console.log(path);
             this.router.navigateByUrl(`/bodas/${path}`);
           });
           return false;

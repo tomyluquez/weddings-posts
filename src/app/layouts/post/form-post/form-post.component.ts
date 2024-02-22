@@ -9,13 +9,15 @@ import {
 import { Router } from '@angular/router';
 import { LoaderComponent } from '@app/components/shared/loader/loader.component';
 import { Post } from '@app/core/models/post.model';
+import { User } from '@app/core/models/user.model';
 import { Wedding, WeddingState } from '@app/core/models/wedding.model';
 import { FirebaseService } from '@app/services/firebase.service';
 import { StorageService } from '@app/services/storage.service';
 import { loadWedding } from '@app/state/actions/wedding.actions';
 import { selectStore } from '@app/state/selectors/posts.selectors';
+import { selectInfoUser } from '@app/state/selectors/user.selectors';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -33,6 +35,8 @@ export class FormPostComponent implements OnChanges {
   currentUrl = this.router.url;
   loading!: boolean;
   formPost!: FormGroup;
+  user$!: Observable<User>;
+  userName?: string | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +52,7 @@ export class FormPostComponent implements OnChanges {
     });
 
     this.wedding$ = this._store.pipe(select(selectStore));
+    this.user$ = this._store.pipe(select(selectInfoUser));
   }
 
   ngOnChanges(): void {
@@ -102,9 +107,12 @@ export class FormPostComponent implements OnChanges {
       }
 
       if (isNewPost) {
+        this.user$.subscribe((user: User) => {
+          this.userName = user.userName;
+        });
         // si es un nuevo post, se genera un nuevo objeto y se llama al metodo de firestore
         const newPost: Post = {
-          userName: 'userName',
+          userName: this.userName || 'defaultUser',
           publicationId: uuidv4(),
           comment,
           image: urlImage,

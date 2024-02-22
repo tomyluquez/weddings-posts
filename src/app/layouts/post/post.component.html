@@ -9,8 +9,6 @@
 @else {
 @for (post of (store$ | async)?.wedding?.posts; track $index) {
 <app-card-post [post]="post" [loading]="(store$ | async)!.loading" />
-
-
 }
 }
 

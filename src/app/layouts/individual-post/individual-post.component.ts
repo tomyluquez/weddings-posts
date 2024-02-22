@@ -6,8 +6,10 @@ import { NewCommentComponent } from '@app/components/new-comment/new-comment.com
 import { ButtonBackComponent } from '@app/components/shared/button-back/button-back.component';
 import { CardPostComponent } from '@app/components/shared/card-post/card-post.component';
 import { Post } from '@app/core/models/post.model';
+import { User } from '@app/core/models/user.model';
 import { WeddingState } from '@app/core/models/wedding.model';
 import { selectStore } from '@app/state/selectors/posts.selectors';
+import { selectInfoUser } from '@app/state/selectors/user.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, first, map } from 'rxjs';
 
@@ -28,6 +30,7 @@ export class IndividualPostComponent implements OnInit {
   publicationId = this.route.snapshot.paramMap.get('publicationId');
   post$!: Observable<Post>;
   loading$!: Observable<boolean>;
+  user$!: Observable<User>;
 
   constructor(private store: Store, private route: ActivatedRoute) {}
 
@@ -46,5 +49,9 @@ export class IndividualPostComponent implements OnInit {
     this.loading$ = this.store
       .select(selectStore)
       .pipe(map((state: WeddingState) => state.loading));
+
+    this.user$ = this.store
+      .select(selectInfoUser)
+      .pipe(map((user: User) => user));
   }
 }

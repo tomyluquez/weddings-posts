@@ -72,7 +72,6 @@ export class WedPostsComponent implements OnDestroy {
 
       if (wedding) {
         this.store.dispatch(setWedding({ wedding }));
-        localStorage.setItem('weddingInfo', JSON.stringify(wedding));
       } else {
         this.router.navigateByUrl(`/bodas/notFound`);
       }

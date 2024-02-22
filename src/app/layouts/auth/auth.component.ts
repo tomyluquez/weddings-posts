@@ -15,11 +15,8 @@ import { Store } from '@ngrx/store';
 })
 export class AuthComponent {
   @Input() welcomeText!: string;
-  constructor(
-    private _auth: AuthServiceService,
-    private _store: Store,
-    private location: Location
-  ) {}
+  @Input() imageLogin!: string;
+  constructor(private _auth: AuthServiceService, private _store: Store) {}
 
   loginWithGoogle() {
     this._auth.signupWhitGoogle().then((user) => {

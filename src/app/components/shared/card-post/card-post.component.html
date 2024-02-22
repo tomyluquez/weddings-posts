@@ -1,8 +1,10 @@
 @if (post) {
 <section class="flex flex-col boder-2 border-y border-slate-300 py-4 px-2 gap-4">
     <div class="flex items-center justify-between relative">
-        <h3 class="text-2xl font-bold text-red-300">{{post.userName}}</h3>
+        <app-user-image-profile [userNamePost]="post.userName" />
+        @if (post.userName === (user$ | async)?.userName) {
         <button (click)="toggleOptionsMenu()" class="menu-toggle">&#8230;</button>
+        }
         <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
             <ul>
                 <li (click)="editPost(post.publicationId)">Editar publicación</li>
@@ -12,18 +14,12 @@
         </div>
     </div>
 
-    <!-- <img class="w-full h-100" [src]="post?.image" alt="Imagen del post?eo"> -->
+
     <div (click)="openPost(post!.publicationId)"
         class="bg-contain bg-no-repeat bg-center h-[300px] w-full cursor-pointer"
         [style.background-image]="'url(' + post.image + ')'">
     </div>
 
-
-    <div class="flex items-center justify-between">
-        <i (click)="like()" class="fa-solid fa-heart text-red-500">{{post.likes.length}}</i>
-        <i (click)="openPost(post!.publicationId)"
-            class="fa-solid fa-comment text-slate-500">{{post.comments.length}}</i>
-    </div>
 
     <div (click)="toogleMessage()">
         <p
@@ -33,6 +29,18 @@
         @if (post.comment.length > 50) {
         <label class="text-sm text-blue-400">{{messageFull ? 'Leer menos' : 'Leer mas'}}</label>
         }
+    </div>
+
+    <div class="flex items-center justify-between">
+        @if (post.likes.includes((user$ | async)?.userName ?? '')) {
+        <i (click)="like()" class="fa-solid fa-heart text-red-500 mr-1"><span
+                class="ml-1">{{post.likes.length}}</span></i>
+        } @else {
+        <i (click)="like()" class="fa-regular fa-heart text-red-500 mr-1"><span
+                class="ml-1">{{post.likes.length}}</span></i>
+        }
+        <i (click)="openPost(post!.publicationId)" class="fa-solid fa-comment text-slate-500 mr-1"><span
+                class="ml-1">{{post.comments.length}}</span></i>
     </div>
 </section>
 }

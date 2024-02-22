@@ -2,7 +2,8 @@
 <app-button-scroll-to-up />
 
 @if (!user!.userName) {
-<app-auth [welcomeText]="(wedding$ | async)?.wedding!.welcomeText" />
+<app-auth [welcomeText]="(wedding$ | async)?.wedding!.welcomeText"
+    [imageLogin]="(wedding$ | async)?.wedding!.imageLogin" />
 }
 
 @if((wedding$ | async)?.loading) {

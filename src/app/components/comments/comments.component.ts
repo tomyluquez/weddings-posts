@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 })
 export class CommentsComponent {
   @Input({ required: true }) comments!: Comments[];
+  @Input({ required: true }) userName!: string | null;
   publicationId!: string;
 
   constructor(

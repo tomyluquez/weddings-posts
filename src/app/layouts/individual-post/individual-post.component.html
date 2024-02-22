@@ -2,6 +2,6 @@
 
 <app-card-post [post]="post$ | async" [loading]="(loading$ | async)" />
 
-<app-comments [comments]="(post$ | async)!.comments" />
+<app-comments [comments]="(post$ | async)!.comments" [userName]="(user$ | async)!.userName" />
 
-<app-new-comment />
+<app-new-comment [userName]="(user$ | async)!.userName" />
