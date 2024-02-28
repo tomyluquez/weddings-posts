@@ -1,7 +1,7 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCERS, localStorageSyncReducer } from './state/app.state';
@@ -23,6 +23,7 @@ import {
 import { environment } from './environments/environment.development';
 import { connectAuthEmulator } from '@firebase/auth';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideRouter, withViewTransitions, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -67,7 +68,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       return storage;
     }),
   ],
-  providers: [],
+  providers: [provideRouter(routes, withViewTransitions())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

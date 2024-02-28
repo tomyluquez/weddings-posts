@@ -3,8 +3,9 @@
     <div class="flex items-center justify-between relative">
         <app-user-image-profile [userNamePost]="post.userName" />
         @if (post.userName === (user$ | async)?.userName) {
-        <button (click)="toggleOptionsMenu()"
-            class="menu-toggle flex items-center justify-center"><span>&#8230;</span></button>
+        <button (click)="toggleOptionsMenu()" class="menu-toggle flex items-center justify-center">
+            <span class="px-[20px]">&#8230;</span>
+        </button>
         }
         <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
             <ul>
@@ -33,15 +34,15 @@
         }
     </div>
 
-    <div class="flex items-center justify-start gap-4">
+    <div class="flex items-center justify-start">
         @if (post.likes.includes((user$ | async)?.userName ?? '')) {
-        <i (click)="like()" [ngClass]="{'beat-heart': isLiked}" class="fa-solid fa-heart text-red-500 mr-1"><span
+        <i (click)="like()" [ngClass]="{'beat-heart': isLiked}" class="fa-solid fa-heart text-red-500 px-[10px]"><span
                 class="ml-1">{{post.likes.length}}</span></i>
         } @else {
-        <i (click)="like()" class="fa-regular fa-heart text-red-500 mr-1"><span
+        <i (click)="like()" class="fa-regular fa-heart text-red-500 px-[10px]"><span
                 class="ml-1">{{post.likes.length}}</span></i>
         }
-        <i (click)="openPost(post!.publicationId)" class="fa-solid fa-comment text-slate-500 mr-1"><span
+        <i (click)="openPost(post!.publicationId)" class="fa-solid fa-comment text-slate-500 px-[10px]"><span
                 class="ml-1">{{post.comments.length}}</span></i>
     </div>
 </section>

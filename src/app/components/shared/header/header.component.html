@@ -1,5 +1,5 @@
 <header
-    class="relative flex mb-4 py-4 px-2 items-center justify-between border-b border-slate-300 border-2 bg-red-300 w-full">
+    class="relative flex mb-4 py-4 px-2 items-center justify-between border-b border-slate-300 border-2 bg-red-300 w-full z-[2]">
 
     @if(wedding){
     <div class="text-center">
@@ -8,9 +8,9 @@
     }
 
     @if (userName) {
-    <div class="flex items-center justify-center gap-[10px] text-[12px]">
+    <div class="flex items-center justify-center gap-[10px] text-[16px] cursor-pointer" (click)="toggleOptionsMenu()">
         <span class="text-white">Hola! {{userName}}</span>
-        <button (click)="toggleOptionsMenu()" class="menu-toggle flex items-center justify-center">
+        <button class="menu-toggle flex items-center justify-center">
             <i class="fa-solid fa-caret-down text-white"></i>
         </button>
     </div>

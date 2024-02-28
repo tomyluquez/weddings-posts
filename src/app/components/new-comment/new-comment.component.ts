@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@app/core/models/user.model';
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './new-comment.component.html',
   styleUrl: './new-comment.component.css',
 })
-export class NewCommentComponent {
+export class NewCommentComponent implements OnInit {
   @Input() userName!: string | null;
   newComment: string = '';
   publicationId!: string;
@@ -29,6 +29,11 @@ export class NewCommentComponent {
     this._router.params.subscribe((params) => {
       this.publicationId = params['publicationId'];
     });
+  }
+
+  ngOnInit() {
+    const input = document.getElementById('inputComment');
+    input?.focus();
   }
 
   addComment() {
