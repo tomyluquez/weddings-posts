@@ -26,6 +26,7 @@ export class CardPostComponent {
   currentUrl = this.router.url;
   wedding$!: Observable<string>;
   user$!: Observable<User>;
+  isLiked = false;
 
   constructor(
     private router: Router,
@@ -72,6 +73,7 @@ export class CardPostComponent {
   }
 
   like() {
+    this.isLiked = true;
     let userName;
     this.user$.subscribe((u: User) => {
       userName = u.userName;

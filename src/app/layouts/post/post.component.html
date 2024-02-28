@@ -1,9 +1,16 @@
 @if(!(store$ | async)?.wedding) {
-<h1>No existe la boda por favor corrobora el nombre de la url</h1>
+<h1 class="initial-message">No existe la boda por favor corrobora el
+    nombre de la url
+</h1>
 }
 
 @else if((store$ | async)?.wedding?.posts?.length === 0){
-<h1>No hay publicaciones</h1>
+<div class="container-message">
+    <h1 class="initial-message">Aun no hay ninguna publicacion. <br>Se el
+        primero en subir una imagen
+    </h1>
+    <img class="absolute bottom-0 w-[250px]" src="../../../assets/posts2.webp" alt="">
+</div>
 }
 
 @else {

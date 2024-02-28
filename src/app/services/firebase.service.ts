@@ -231,15 +231,18 @@ export class FirebaseService {
         const postIndex = posts.findIndex(
           (post: Post) => post.publicationId === idPublication
         );
+        const commentToDelete = posts[postIndex].comments.findIndex(
+          (comment: any) => comment.idComment === idComment
+        );
         if (postIndex !== -1) {
-          posts[postIndex].comments.splice(postIndex, 1);
+          posts[postIndex].comments.splice(commentToDelete, 1);
         }
         return await updateDoc(celiDocRef, {
           posts: posts,
         });
       }
     } catch (error) {
-      console.error('Error al agregar el nuevo post:', error);
+      console.error('Error al eliminar el comentario del post:', error);
     }
   }
 }

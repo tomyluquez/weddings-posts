@@ -1,15 +1,17 @@
 @if (post) {
-<section class="flex flex-col boder-2 border-y border-slate-300 py-4 px-2 gap-4">
+<section class="flex flex-col boder-2 border-y border-slate-300 py-4 px-2 gap-4 my-[35px]">
     <div class="flex items-center justify-between relative">
         <app-user-image-profile [userNamePost]="post.userName" />
         @if (post.userName === (user$ | async)?.userName) {
-        <button (click)="toggleOptionsMenu()" class="menu-toggle">&#8230;</button>
+        <button (click)="toggleOptionsMenu()"
+            class="menu-toggle flex items-center justify-center"><span>&#8230;</span></button>
         }
         <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
             <ul>
-                <li (click)="editPost(post.publicationId)">Editar publicación</li>
+                <li (click)="editPost(post.publicationId)"><i class="fa-solid fa-pen-to-square"></i> Editar publicación
+                </li>
                 <hr>
-                <li (click)="deletePost(post.publicationId)">Eliminar publicación</li>
+                <li (click)="deletePost(post.publicationId)"><i class="fa-solid fa-trash"></i> Eliminar publicación</li>
             </ul>
         </div>
     </div>
@@ -22,18 +24,18 @@
 
 
     <div (click)="toogleMessage()">
-        <p
-            [ngClass]="{'text-slate-400': true, 'message-wraped': true, 'line-clamp-2': !messageFull, 'line-clamp-none': messageFull, 'duration': 300}">
+        <p [ngClass]="{'text-slate-400': true, 'message-wraped': true, 'line-clamp-2': !messageFull, 'line-clamp-none': messageFull, 'duration': 300}"
+            class="text-[15px]">
             {{ post.comment }}
         </p>
-        @if (post.comment.length > 50) {
-        <label class="text-sm text-blue-400">{{messageFull ? 'Leer menos' : 'Leer mas'}}</label>
+        @if (post.comment.length > 100) {
+        <label class="text-[10px] text-blue-400">{{messageFull ? 'Leer menos' : 'Leer mas'}}</label>
         }
     </div>
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-start gap-4">
         @if (post.likes.includes((user$ | async)?.userName ?? '')) {
-        <i (click)="like()" class="fa-solid fa-heart text-red-500 mr-1"><span
+        <i (click)="like()" [ngClass]="{'beat-heart': isLiked}" class="fa-solid fa-heart text-red-500 mr-1"><span
                 class="ml-1">{{post.likes.length}}</span></i>
         } @else {
         <i (click)="like()" class="fa-regular fa-heart text-red-500 mr-1"><span

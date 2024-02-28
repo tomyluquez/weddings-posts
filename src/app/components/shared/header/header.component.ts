@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { Component, Input } from '@angular/core';
 import { Wedding } from '@app/core/models/wedding.model';
+import { AuthServiceService } from '@app/services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +10,23 @@ import { Wedding } from '@app/core/models/wedding.model';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() wedding?: Wedding;
   @Input() userName?: string | null;
+  isOpenOptionsMenu: boolean = false;
 
   imgBg = './assets/bg-header.webp';
-  scrollPosition = 0;
 
-  constructor(private dc: ChangeDetectorRef) {}
+  constructor(private _auth: AuthServiceService) {}
 
-  ngOnInit(): void {
-    window.addEventListener('scroll', () => {
-      this.scrollPosition = window.scrollY;
-      this.dc.detectChanges();
+  toggleOptionsMenu() {
+    this.isOpenOptionsMenu = !this.isOpenOptionsMenu;
+  }
+
+  loguot() {
+    this._auth.signOut().then(() => {
+      localStorage.removeItem('userState');
+      window.location.reload();
     });
   }
 }

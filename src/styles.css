@@ -1,9 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", "Open Sans";
+}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  height: 100%;
+}
+
+.menu-options {
+  @apply absolute top-[100%] right-0 border-2 border-slate-200 rounded shadow-2xl bg-red-300 text-white;
+}
+
+.menu-options ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-options ul li {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.menu-options ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
 }
