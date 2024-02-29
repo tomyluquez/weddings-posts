@@ -1,7 +1,9 @@
 @if(!(store$ | async)?.wedding) {
-<h1 class="initial-message">No existe la boda por favor corrobora el
-    nombre de la url
-</h1>
+<div class="container-message">
+    <h1 class="initial-message">No se ha encontrado la boda. <br>Por favor corrobora el link.
+    </h1>
+    <img class="absolute bottom-0 w-[250px]" src="../../../assets/404.webp" alt="">
+</div>
 }
 
 @else if((store$ | async)?.wedding?.posts?.length === 0){

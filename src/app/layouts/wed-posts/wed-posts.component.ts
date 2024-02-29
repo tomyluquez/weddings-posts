@@ -69,12 +69,7 @@ export class WedPostsComponent implements OnDestroy {
   ngOnInit(): void {
     this._firestore.getWedding(this.weddingPath).subscribe((wedding) => {
       this.store.dispatch(loadWedding());
-
-      if (wedding) {
-        this.store.dispatch(setWedding({ wedding }));
-      } else {
-        this.router.navigateByUrl(`/bodas/notFound`);
-      }
+      this.store.dispatch(setWedding({ wedding }));
     });
   }
 }

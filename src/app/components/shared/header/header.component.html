@@ -1,5 +1,5 @@
 <header
-    class="relative flex mb-4 py-4 px-2 items-center justify-between border-b border-slate-300 border-2 bg-red-300 w-full z-[2]">
+    class="relative flex mb-4 py-4 px-2 items-center justify-between border-b border-slate-300 border-2 bg-red-300 w-full z-[2] h-[75px]">
 
     @if(wedding){
     <div class="text-center">
@@ -8,16 +8,21 @@
     }
 
     @if (userName) {
-    <div class="flex items-center justify-center gap-[10px] text-[16px] cursor-pointer" (click)="toggleOptionsMenu()">
-        <span class="text-white">Hola! {{userName}}</span>
+    <div class="flex items-center justify-center gap-[10px] text-[16px] cursor-pointer relative"
+        (click)="toggleOptionsMenu()">
+        <span class="text-white text-center">Hola! 👋 <br> {{userName}}</span>
         <button class="menu-toggle flex items-center justify-center">
-            <i class="fa-solid fa-caret-down text-white"></i>
+            <i [ngClass]="{'rotate-180': isOpenOptionsMenu}" class="fa-solid fa-caret-down text-white duration-300"></i>
         </button>
-    </div>
-    <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
-        <ul>
-            <li (click)="loguot()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</li>
-        </ul>
+        <div class="menu-options" [ngClass]="{ 'flex': isOpenOptionsMenu, 'hidden': !isOpenOptionsMenu }">
+            <ul>
+                <li (click)="loguot()" class="text-[12px]">
+                    <i class="fa-solid fa-arrow-right-from-bracket duration-300">
+                    </i>
+                    Cerrar Sesion
+                </li>
+            </ul>
+        </div>
     </div>
     }
 

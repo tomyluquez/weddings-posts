@@ -15,7 +15,7 @@ body {
 }
 
 .menu-options {
-  @apply absolute top-[100%] right-0 border-2 border-slate-200 rounded shadow-2xl bg-red-300 text-white;
+  @apply absolute top-[125%] right-0 border-2 border-slate-200 rounded shadow-2xl bg-red-300 text-white;
 }
 
 .menu-options ul {
@@ -26,7 +26,7 @@ body {
 
 .menu-options ul li {
   padding: 10px;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .menu-options ul li a {
